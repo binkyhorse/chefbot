@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Erstelle mit ChefBot einen Wochenplan für deine Mahlzeiten" />
+  <title>ChefBot</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="intro">
+      <p class="eyebrow">WOCHENPLAN-ASSISTENT</p>
+      <h1>Eine Woche zum Genießen.</h1>
+      <p class="lede">Sag ChefBot, was dir schmeckt, was du meidest und wie viel Zeit du hast.</p>
+    </section>
+
+    <section class="planner" aria-label="ChefBot Speiseplanung">
+      <div class="tabs" role="tablist" aria-label="ChefBot Bereiche">
+        <button class="tab-button active" id="planning-tab" type="button" role="tab" aria-selected="true" aria-controls="planning-panel">Planung</button>
+        <button class="tab-button" id="results-tab" type="button" role="tab" aria-selected="false" aria-controls="results-panel">Ergebnisse</button>
+      </div>
+
+      <div class="tab-panel active" id="planning-panel" role="tabpanel" aria-labelledby="planning-tab">
+      <h2 id="request-heading">Worauf soll der Plan abgestimmt sein?</h2>
+      <form id="menu-form">
+        <fieldset class="food-section">
+          <legend>Lebensmittel eintragen</legend>
+          <p class="field-hint">Lege fest, ob etwas bereits da ist oder neu in den Plan soll.</p>
+          <div id="food-list" class="food-list"></div>
+          <div class="food-actions">
+            <button id="add-food" class="secondary-button" type="button">+ Weiteres Lebensmittel</button>
+            <button id="import-vegetable-basket" class="import-button" type="button" disabled
+              title="Diese Funktion wird später verfügbar sein" aria-disabled="true">
+              Gemüsekorb importieren
+            </button>
+          </div>
+        </fieldset>
+
+        <fieldset class="meal-section">
+          <legend>Mahlzeiten planen</legend>
+          <p class="field-hint">Wähle die Mahlzeiten aus, die in deinen Wochenplan aufgenommen werden sollen.</p>
+          <div class="meal-grid" role="group" aria-label="Mahlzeiten nach Wochentag">
+            <div class="meal-grid-header" aria-hidden="true"></div>
+            <div class="meal-grid-header" aria-hidden="true">Mittag</div>
+            <div class="meal-grid-header" aria-hidden="true">Abend</div>
+
+            <label class="meal-day">Mittwoch</label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Mittwoch|mittag" checked /><span>Mittag</span></label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Mittwoch|abend" checked /><span>Abend</span></label>
+
+            <label class="meal-day">Donnerstag</label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Donnerstag|mittag" /><span>Mittag</span></label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Donnerstag|abend" checked /><span>Abend</span></label>
+
+            <label class="meal-day">Freitag</label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Freitag|mittag" checked /><span>Mittag</span></label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Freitag|abend" checked /><span>Abend</span></label>
+
+            <label class="meal-day">Samstag</label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Samstag|mittag" checked /><span>Mittag</span></label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Samstag|abend" checked /><span>Abend</span></label>
+
+            <label class="meal-day">Sonntag</label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Sonntag|mittag" checked /><span>Mittag</span></label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Sonntag|abend" checked /><span>Abend</span></label>
+
+            <label class="meal-day">Montag</label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Montag|mittag" /><span>Mittag</span></label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Montag|abend" checked /><span>Abend</span></label>
+
+            <label class="meal-day">Dienstag</label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Dienstag|mittag" checked /><span>Mittag</span></label>
+            <label class="meal-choice"><input type="checkbox" name="meal" value="Dienstag|abend" checked /><span>Abend</span></label>
+          </div>
+        </fieldset>
+
+        <label for="prompt">Deine Anfrage</label>
+        <textarea id="prompt" name="prompt" rows="5" minlength="3" maxlength="2000" required
+          placeholder="Beispiel: Fünf vegetarische Abendessen für eine Familie mit vier Personen, dazu ein unkomplizierter Sonntag."></textarea>
+        <button id="submit-button" type="submit">Meine Speiseplanung erstellen</button>
+      </form>
+
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="tab-panel" id="results-panel" role="tabpanel" aria-labelledby="results-tab">
+        <div class="results-heading">
+          <div>
+            <p class="results-kicker">VORGESCHLAGENER WOCHENPLAN</p>
+            <h2>Deine Mahlzeiten</h2>
+          </div>
+          <div class="results-actions">
+            <button id="back-to-planning" class="text-button" type="button">Planung bearbeiten</button>
+            <button id="export-pdf" class="pdf-button" type="button">PDF exportieren</button>
+          </div>
+        </div>
+        <p class="field-hint">Passe einen Vorschlag direkt an oder ziehe ihn auf einen anderen Platz, um die Mahlzeiten zu tauschen. Die Plätze bleiben bestehen.</p>
+        <div id="meal-results" class="meal-results"></div>
+      </div>
+    </section>
+  </main>
+  <section id="print-plan" class="print-plan" aria-hidden="true">
+    <header>
+      <p>CHEFBOT · WOCHENPLAN</p>
+      <h1>Meine Mahlzeiten</h1>
+    </header>
+    <div id="print-meals" class="print-meals"></div>
+  </section>
+  <template id="food-row-template">
+    <div class="food-row">
+      <input class="food-name" type="text" maxlength="100" list="food-suggestions" placeholder="z. B. Linsen, Brokkoli oder Reis" aria-label="Lebensmittel" />
+      <select class="food-status" aria-label="Art des Lebensmittels">
+        <option value="bisher">bisher</option>
+        <option value="neu">neu</option>
+      </select>
+      <button class="remove-food" type="button" aria-label="Lebensmittel entfernen">×</button>
+    </div>
+  </template>
+  <datalist id="food-suggestions">
+    <option value="Apfel"></option>
+    <option value="Aubergine"></option>
+    <option value="Avocado"></option>
+    <option value="Banane"></option>
+    <option value="Brokkoli"></option>
+    <option value="Champignons"></option>
+    <option value="Chinakohl"></option>
+    <option value="Erbsen"></option>
+    <option value="Fenchel"></option>
+    <option value="Gurke"></option>
+    <option value="Karotte"></option>
+    <option value="Kartoffeln"></option>
+    <option value="Kichererbsen"></option>
+    <option value="Kürbis"></option>
+    <option value="Lauch"></option>
+    <option value="Linsen"></option>
+    <option value="Paprika"></option>
+    <option value="Pasta"></option>
+    <option value="Radieschen"></option>
+    <option value="Reis"></option>
+    <option value="Rote Bete"></option>
+    <option value="Salatgurke"></option>
+    <option value="Spinat"></option>
+    <option value="Süßkartoffeln"></option>
+    <option value="Tomate"></option>
+    <option value="Tofu"></option>
+    <option value="Zucchini"></option>
+    <option value="Zwiebel"></option>
+  </datalist>
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

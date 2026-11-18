@@ -1,0 +1,122 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #263329;
+  background: #f4efe4;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 85% 12%, rgba(224, 165, 94, 0.22), transparent 25rem),
+    linear-gradient(135deg, #f8f4ea 0%, #eee8d8 100%);
+}
+
+.shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(32px, 7vw, 96px);
+  align-items: center;
+  padding: 64px 0;
+}
+
+.eyebrow { letter-spacing: 0.18em; font-size: 0.75rem; font-weight: 800; color: #9a5d32; }
+h1 { max-width: 8ch; margin: 12px 0 20px; font-family: Georgia, serif; font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 0.94; letter-spacing: -0.055em; }
+.lede { max-width: 34rem; font-size: clamp(1.05rem, 2vw, 1.25rem); line-height: 1.7; color: #657064; }
+
+.planner { background: rgba(255, 255, 255, 0.78); border: 1px solid rgba(74, 92, 78, 0.12); border-radius: 24px; padding: clamp(24px, 5vw, 48px); box-shadow: 0 24px 70px rgba(60, 66, 48, 0.12); backdrop-filter: blur(14px); }
+.planner h2 { margin-top: 0; font-family: Georgia, serif; font-size: 2rem; }
+label, legend { display: block; margin-bottom: 8px; font-weight: 750; }
+textarea, .food-name, .food-status { width: 100%; border: 1px solid #bdc3b4; border-radius: 12px; padding: 16px; background: #fffdf7; color: inherit; font: inherit; }
+textarea { resize: vertical; line-height: 1.5; }
+textarea:focus, .food-name:focus, .food-status:focus { outline: 3px solid rgba(154, 93, 50, 0.16); border-color: #9a5d32; }
+button { width: 100%; margin-top: 12px; border: 0; border-radius: 12px; padding: 15px 20px; background: #294b35; color: white; font-weight: 800; cursor: pointer; }
+button:hover { background: #365e43; }
+button:disabled { opacity: 0.65; cursor: wait; }
+.food-section { border: 0; margin: 0 0 24px; padding: 0; }
+.field-hint { margin: -2px 0 12px; color: #657064; font-size: 0.92rem; }
+.food-list { display: grid; gap: 8px; }
+.food-row { display: grid; grid-template-columns: minmax(0, 1fr) 112px 42px; gap: 8px; }
+.food-name, .food-status { height: 48px; padding: 10px 12px; }
+.remove-food { width: 42px; height: 48px; margin: 0; padding: 0; background: #ebe5d7; color: #6c685e; font-size: 1.35rem; }
+.remove-food:hover { background: #ddd4c2; }
+.food-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.secondary-button, .import-button { margin-top: 8px; }
+.secondary-button { background: transparent; border: 1px dashed #9da58f; color: #294b35; }
+.secondary-button:hover { background: #f4f0e4; }
+.import-button { background: #cfd2cb; color: #777b74; }
+.import-button:hover { background: #cfd2cb; }
+.import-button:disabled { cursor: not-allowed; opacity: 1; }
+.status { min-height: 24px; margin-top: 16px; color: #657064; }
+.status-error { color: #a13a31; }
+.result { margin-top: 20px; border-top: 1px solid #dddaca; padding-top: 8px; }
+.result h2 { font-size: 1.5rem; }
+#menu-output { line-height: 1.75; }
+
+.meal-section { border: 0; margin: 24px 0; padding: 0; }
+.meal-grid { display: grid; grid-template-columns: minmax(82px, 1fr) repeat(2, minmax(76px, 0.8fr)); gap: 6px; align-items: center; }
+.meal-grid-header { min-height: 24px; text-align: center; font-size: 0.78rem; font-weight: 800; color: #657064; }
+.meal-day { min-height: 42px; display: flex; align-items: center; font-weight: 750; }
+.meal-choice { min-height: 42px; display: flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid #d7d8cd; border-radius: 10px; background: #fffdf7; cursor: pointer; }
+.meal-choice:has(input:checked) { border-color: #294b35; background: #edf2ea; }
+.meal-choice input { accent-color: #294b35; }
+.meal-choice span { display: none; }
+
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 28px; padding: 5px; border-radius: 12px; background: #ece7da; }
+.tab-button { margin: 0; background: transparent; color: #657064; }
+.tab-button:hover { background: transparent; }
+.tab-button.active { background: #fffdf7; color: #294b35; box-shadow: 0 3px 12px rgba(60, 66, 48, 0.08); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.results-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.results-heading h2 { margin: 4px 0 0; }
+.results-kicker { margin: 0; color: #9a5d32; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; }
+.text-button { width: auto; margin: 0; padding: 8px 10px; background: transparent; color: #294b35; }
+.text-button:hover { background: #edf2ea; }
+.results-actions { display: flex; gap: 4px; }
+.pdf-button { width: auto; margin: 0; padding: 9px 12px; background: #294b35; color: white; }
+.pdf-button:hover { background: #365e43; }
+.print-plan { display: none; }
+.meal-results { display: grid; gap: 10px; }
+.meal-result-card { display: grid; grid-template-columns: 28px 112px minmax(0, 1fr); align-items: center; gap: 8px; min-height: 82px; padding: 10px; border: 1px solid #d7d8cd; border-radius: 14px; background: #fffdf7; }
+.meal-result-card.dragging { opacity: 0.5; }
+.meal-result-card.drop-target { border-color: #9a5d32; background: #f7efe1; }
+.drag-handle { color: #9da58f; cursor: grab; font-size: 1.15rem; letter-spacing: -5px; user-select: none; }
+.meal-result-slot { margin: 0; font-size: 0.82rem; line-height: 1.35; color: #657064; }
+.meal-suggestion { width: 100%; min-height: 58px; resize: vertical; border: 1px solid transparent; border-radius: 9px; padding: 8px 10px; background: #f7f4ea; color: #263329; font: inherit; }
+.meal-suggestion:focus { outline: 3px solid rgba(154, 93, 50, 0.16); border-color: #9a5d32; }
+
+@media (max-width: 780px) {
+  .shell { grid-template-columns: 1fr; align-content: start; }
+  h1 { font-size: clamp(3.25rem, 16vw, 5.5rem); }
+}
+
+@media (max-width: 480px) {
+  .food-row { grid-template-columns: minmax(0, 1fr) 96px 42px; }
+  .food-actions { grid-template-columns: 1fr; }
+  .results-heading { align-items: flex-start; }
+  .text-button { font-size: 0.82rem; }
+  .meal-result-card { grid-template-columns: 24px minmax(80px, 112px) minmax(0, 1fr); }
+}
+
+@media print {
+  @page { size: A4; margin: 16mm; }
+  body { background: white; color: #263329; }
+  body > .shell { display: none !important; }
+  .print-plan { display: block; }
+  .print-plan header { margin-bottom: 16mm; border-bottom: 2px solid #294b35; padding-bottom: 6mm; }
+  .print-plan header p { margin: 0 0 3mm; color: #9a5d32; font-size: 9pt; font-weight: 800; letter-spacing: 0.14em; }
+  .print-plan header h1 { max-width: none; margin: 0; color: #263329; font-family: Georgia, serif; font-size: 28pt; }
+  .print-meals { display: grid; gap: 4mm; }
+  .print-day-row { display: grid; grid-template-columns: 28mm 1fr 1fr; gap: 8mm; align-items: start; break-inside: avoid; border-bottom: 1px solid #d7d8cd; padding: 0 0 4mm; }
+  .print-day { color: #263329; font-family: Georgia, serif; font-size: 12pt; }
+  .print-meal { min-height: 20mm; }
+  .print-meal b { display: block; margin-bottom: 2mm; color: #657064; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.08em; }
+  .print-meal span { display: block; font-family: Georgia, serif; font-size: 11pt; line-height: 1.35; }
+}

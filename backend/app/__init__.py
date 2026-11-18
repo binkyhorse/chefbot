@@ -1,0 +1,1 @@
+"""ChefBot backend package."""
